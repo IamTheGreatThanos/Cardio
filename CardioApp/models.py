@@ -22,8 +22,7 @@ class Profile(models.Model):
         null=True,
         blank=True
     )
-    data = models.CharField(
-        max_length=256,
+    data = models.TextField(
         null=True,
         blank=True
     )

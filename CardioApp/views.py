@@ -1,9 +1,11 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from .models import Profile 
 
 import json
 from django.http import JsonResponse
+from .serializers import ProfileSerializer
 # from .serializers import DeviceSerializer
 
 # class DeviceView(APIView):
@@ -22,6 +24,12 @@ from django.http import JsonResponse
 
 
 class SetBytesView(APIView):
+    def get(self, request):
+        profiles = Profile.objects.all()
+        serializer = ProfileSerializer(profiles, many=True)
+        return Response(serializer.data[0])
+
+    
     def post(self, request):
         try:
             byte = request.POST.get("byte")
@@ -32,3 +40,4 @@ class SetBytesView(APIView):
         except ValueError as e:
             return JsonResponse(e.args[0], status.HTTP_404_NOT_FOUND)
 
+    

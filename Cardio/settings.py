@@ -25,7 +25,7 @@ SECRET_KEY = 'k05*pc0ze)(afuqahs82%ot)si4-!r7@dq6!0kevjy5l2sc$5g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['68.183.112.82']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'CardioApp',
-    'channels'
 ]
 
 MIDDLEWARE = [
@@ -70,7 +69,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Cardio.wsgi.application'
-ASGI_APPLICATION = "Cardio.routing.application"
+# ASGI_APPLICATION = 'Cardio.asgi.application'
 
 
 # Database
