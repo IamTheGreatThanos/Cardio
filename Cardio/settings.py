@@ -25,9 +25,7 @@ SECRET_KEY = 'k05*pc0ze)(afuqahs82%ot)si4-!r7@dq6!0kevjy5l2sc$5g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-# AUTH_USER_MODEL = 'CardioApp.User'
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -39,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'CardioApp'
+    'CardioApp',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +69,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Cardio.wsgi.application'
+# ASGI_APPLICATION = 'Cardio.asgi.application'
 
 
 # Database
@@ -121,3 +120,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
