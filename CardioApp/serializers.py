@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import Profile
-import ast
 # from .models import Device
 
 # class DeviceSerializer(serializers.Serializer):
@@ -17,3 +16,9 @@ class ProfileSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         return Profile.objects.create(**validated_data)
+
+
+
+class LoginSer(serializers.Serializer):
+    username = serializers.CharField()
+    pwd = serializers.CharField()
