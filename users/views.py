@@ -25,7 +25,8 @@ class Login(APIView):
                     return Response({'status': 'wrong'})
                 t, _ = Token.objects.get_or_create(user=user)
                 return Response(
-                    {
+                    {   
+                        'status': 'ok',
                         "key": t.key, 
                         "uid": user.id, 
                         "is_staff": user.is_staff,
@@ -36,6 +37,8 @@ class Login(APIView):
                         'birth_date': user.birth_date
                     }
                 )
+            else:
+                return Response({'status': "wrong"})
         else:
             return Response(s.errors)
 
@@ -60,3 +63,31 @@ class Register(APIView):
         else:
             return Response(s.errors)
     
+
+class UsersGetApi(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        queryset = User.objects.values('avatar', 'last_name', 'first_name',
+                                       'birth_date', 'location',
+                                       'username', 'id').filter(is_staff=False)
+        return Response(queryset)
+
+
+class ChangeUser(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request):
+        s = RegSer(data=request.data)
+        if s.is_valid():
+            user = User.objects.get(id=s.validated_data['id'])
+            user.username = s.validated_data.get('username')
+            user.first_name = s.validated_data.get('first_name')
+            user.last_name = s.validated_data.get('last_name')
+            user.birth_date = s.validated_data.get('birth_date')
+            user.location = s.validated_data.get('location')
+            # user.username = s.validated_data.get('username')
+            user.save()
+            return Response({'status': 'ok'})
+        else:
+            return Response(s.errors)
