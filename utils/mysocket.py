@@ -9,17 +9,16 @@ _PACK_INT = int_struct.pack
 class MyTCPServer(TCPServer):
     def handle_stream(self, stream, address):
         try:
-            while True:
-                # Read 4 bytes.
-                header = stream.read_bytes(4)
+            # Read 4 bytes.
+            header = stream.read_bytes(4)
 
-                # Convert from network order to int.
-                # length = _UNPACK_INT(header)[0]
+            # Convert from network order to int.
+            # length = _UNPACK_INT(header)[0]
 
-                msg = stream.read_bytes(1024)
-                print('"%s"' % msg.decode())
+            msg = stream.read_bytes(1024)
+            print('"%s"' % msg.decode())
 
-                del msg  # Dereference msg in case it's big.
+            del msg  # Dereference msg in case it's big.
         except StreamClosedError:
             print("%s disconnected", address)
 
