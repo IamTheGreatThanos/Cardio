@@ -31,7 +31,6 @@ def handle_readables(readables, server):
     Обработка появления событий на входах
     """
     for resource in readables:
-
         # Если событие исходит от серверного сокета, то мы получаем новое подключение
         if resource is server:
             connection, client_address = resource.accept()
@@ -44,25 +43,21 @@ def handle_readables(readables, server):
             data = ""
             try:
                 data = resource.recv(1024)
-
             # Если сокет был закрыт на другой стороне
             except ConnectionResetError:
                 pass
 
             if data:
-
                 # Вывод полученных данных на консоль
                 print("getting data: {data}".format(data=str(data)))
                 response = requests.post('http://back.cardioservice.com.kz/', data={'byte':str(data)})
-                json_response = response.json()
-                print(json_response)
+                print(response)
                 # Говорим о том, что мы будем еще и писать в данный сокет
                 if resource not in OUTPUTS:
                     OUTPUTS.append(resource)
 
             # Если данных нет, но событие сработало, то ОС нам отправляет флаг о полном прочтении ресурса и его закрытии
             else:
-
                 # Очищаем данные о ресурсе и закрываем дескриптор
                 clear_resource(resource)
 
@@ -91,7 +86,6 @@ def handle_writables(writables):
 
 
 if __name__ == '__main__':
-
     # Создаем серверный сокет без блокирования основного потока в ожидании подключения
     server_socket = get_non_blocking_server_socket()
     INPUTS.append(server_socket)
