@@ -2,8 +2,8 @@ import socket
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
-    host = "localhost"
-    port = 8001
+    host = "back.cardioservice.com.kz"
+    port = 13
 
     s.connect((host, port))
     s.sendall(b'')
