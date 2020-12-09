@@ -1,6 +1,6 @@
 import socket
 import select
-from CardioApp.models import Profile
+from .models import Profile
 # Задаем адрес сервера
 SERVER_ADDRESS = ('157.230.91.217', 9878)
 
