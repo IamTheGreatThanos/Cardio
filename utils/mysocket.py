@@ -1,23 +1,40 @@
-from tornado.ioloop import IOLoop
-from tornado.tcpserver import TCPServer
-from tornado.iostream import IOStream, StreamClosedError
+import socket
 
-class EchoServer(TCPServer):
-    async def handle_stream(self, stream, address):
+HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
+PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
+
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.bind((HOST, PORT))
+    s.listen()
+    conn, addr = s.accept()
+    with conn:
+        print('Connected by', addr)
         while True:
-            try:
-                data = await stream.read_until("bardima")
-                d = await stream.read_bytes(4)
-                print(d)
-                await stream.write(data)
-            except StreamClosedError:
+            data = conn.recv(1024)
+            if not data:
                 break
+            conn.sendall(data)
+
+# from tornado.ioloop import IOLoop
+# from tornado.tcpserver import TCPServer
+# from tornado.iostream import IOStream, StreamClosedError
+
+# class EchoServer(TCPServer):
+#     async def handle_stream(self, stream, address):
+#         while True:
+#             try:
+#                 data = await stream.read_until(b"bardima")
+#                 d = await stream.read_bytes(4)
+#                 print(d)
+#                 await stream.write(data)
+#             except StreamClosedError:
+#                 break
 
 
-server = TCPServer()
-server.listen(8888)
-server.start(0)
-IOLoop.current().start()
+# server = TCPServer()
+# server.listen(8888)
+# server.start(0)
+# IOLoop.current().start()
 # import socket
 # import sys
 
