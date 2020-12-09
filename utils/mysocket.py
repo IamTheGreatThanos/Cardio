@@ -14,7 +14,7 @@ class MyTCPServer(TCPServer):
                 header = stream.read_bytes(4)
 
                 # Convert from network order to int.
-                length = _UNPACK_INT(header)[0]
+                # length = _UNPACK_INT(header)[0]
 
                 msg = stream.read_bytes(1024)
                 print('"%s"' % msg.decode())
