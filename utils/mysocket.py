@@ -2,7 +2,7 @@ import socket
 import select
 
 # Задаем адрес сервера
-SERVER_ADDRESS = ('157.230.91.217', 9877)
+SERVER_ADDRESS = ('157.230.91.217', 9878)
 
 # Говорит о том, сколько дескрипторов единовременно могут быть открыты
 MAX_CONNECTIONS = 10
@@ -10,7 +10,6 @@ MAX_CONNECTIONS = 10
 # Откуда и куда записывать информацию
 INPUTS = list()
 OUTPUTS = list()
-
 
 def get_non_blocking_server_socket():
 
