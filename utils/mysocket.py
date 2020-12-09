@@ -1,20 +1,25 @@
 import socket
 
-HOST = '157.230.91.217'  # Standard loopback interface address (localhost)
-PORT = 9876        # Port to listen on (non-privileged ports are > 1023)
+# Задаем адрес сервера
+SERVER_ADDRESS = ('157.230.91.217', 9876)
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.bind((HOST, PORT))
-    s.listen()
-    while True:
-        conn, addr = s.accept()
-        print('Connected by', addr)
-        data = conn.recv(1024)
-        if not data:
-            break
-        print(data)
-        conn.send(bytes('Hello from server!', encoding='UTF-8'))
-        conn.close()
+# Настраиваем сокет
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.bind(SERVER_ADDRESS)
+server_socket.listen(10)
+print('server is running, please, press ctrl+c to stop')
+
+# Слушаем запросы
+while True:
+    connection, address = server_socket.accept()
+    print("new connection from {address}".format(address=address))
+
+    data = connection.recv(1024)
+    print(str(data))
+
+    connection.send(bytes('Hello from server!', encoding='UTF-8'))
+
+    connection.close()
 
 # from tornado.ioloop import IOLoop
 # from tornado.tcpserver import TCPServer
