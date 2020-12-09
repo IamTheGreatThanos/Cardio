@@ -11,12 +11,12 @@ class MyTCPServer(TCPServer):
         try:
             while True:
                 # Read 4 bytes.
-                header = yield stream.read_bytes(4)
+                header = stream.read_bytes(4)
 
                 # Convert from network order to int.
                 length = _UNPACK_INT(header)[0]
 
-                msg = yield stream.read_bytes(length)
+                msg = stream.read_bytes(length)
                 print('"%s"' % msg.decode())
 
                 del msg  # Dereference msg in case it's big.
