@@ -23,14 +23,14 @@ class SetBytesView(APIView):
     def post(self, request):
         try:
             byte = request.POST.get("byte")
-            if len(str(byte)) < 20:
-                print("error")
-                return JsonResponse("Request data is not correct!", safe=False)
-            else:
-                p = Profile.objects.get(id=1)
-                p.data = byte
-                p.save()
-                return JsonResponse("Your byte is " + byte, safe=False)
+            # if len(str(byte)) < 20:
+            #     print("error")
+            #     return JsonResponse("Request data is not correct!", safe=False)
+            # else:
+            p = Profile.objects.get(id=1)
+            p.data = byte
+            p.save()
+            return JsonResponse("Your byte is " + byte, safe=False)
         except ValueError as e:
             return JsonResponse(e.args[0], status.HTTP_404_NOT_FOUND)
 
