@@ -24,6 +24,7 @@ class SetBytesView(APIView):
         try:
             byte = request.POST.get("byte")
             if len(str(byte)) < 20:
+                print("error")
                 return JsonResponse("Request data is not correct!", safe=False)
             else:
                 p = Profile.objects.get(id=1)
