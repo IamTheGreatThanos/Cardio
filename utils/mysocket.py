@@ -6,8 +6,9 @@ class EchoServer(TCPServer):
     async def handle_stream(self, stream, address):
         while True:
             try:
-                data = await stream.read_until(b"\n")
-                print(data)
+                data = await stream.read_until("bardima")
+                d = await stream.read_bytes(4)
+                print(d)
                 await stream.write(data)
             except StreamClosedError:
                 break
