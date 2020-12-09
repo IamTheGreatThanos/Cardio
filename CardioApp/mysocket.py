@@ -77,12 +77,13 @@ def clear_resource(resource):
 
 def handle_writables(writables):
 
+    print(writables)
     # Данное событие возникает когда в буффере на запись освобождается место
-    for resource in writables:
-        try:
-            resource.send(bytes('Hello from server!', encoding='UTF-8'))
-        except OSError:
-            clear_resource(resource)
+    # for resource in writables:
+    #     try:
+    #         resource.send(bytes('Hello from server!', encoding='UTF-8'))
+    #     except OSError:
+    #         clear_resource(resource)
 
 
 if __name__ == '__main__':
