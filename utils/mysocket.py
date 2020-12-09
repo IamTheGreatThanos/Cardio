@@ -5,7 +5,7 @@ from tornado.tcpserver import TCPServer
 class MyTCPServer(TCPServer):
     def handle_stream(self, stream, address):
         def got_data(data):
-            print("Input: {}".format(repr(data)))
+            print("Input: {}".format(data))
             stream.write("OK", stream.close)
 
         stream.read_until("\n", got_data)
