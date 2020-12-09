@@ -1,7 +1,7 @@
 import socket
 import select
-from .models import Profile
-# Задаем адрес сервера
+import requests
+
 SERVER_ADDRESS = ('157.230.91.217', 9878)
 
 # Говорит о том, сколько дескрипторов единовременно могут быть открыты
@@ -53,10 +53,9 @@ def handle_readables(readables, server):
 
                 # Вывод полученных данных на консоль
                 print("getting data: {data}".format(data=str(data)))
-                p = Profile.objects.get(id=1)
-                p.data = str(data)
-                p.save()
-
+                response = requests.post('http://back.cardioservice.com.kz/', data={'byte':str(data)})
+                json_response = response.json()
+                print(json_response)
                 # Говорим о том, что мы будем еще и писать в данный сокет
                 if resource not in OUTPUTS:
                     OUTPUTS.append(resource)
