@@ -1,18 +1,27 @@
 from tornado.ioloop import IOLoop
 from tornado.tcpserver import TCPServer
+from tornado.iostream import IOStream, StreamClosedError
 
-
+import struct
+int_struct = struct.Struct("<i")
+_UNPACK_INT = int_struct.unpack
+_PACK_INT = int_struct.pack
 class MyTCPServer(TCPServer):
     def handle_stream(self, stream, address):
-        a = stream.read_bytes(1024)
-        print(a)
-        # def got_data(data):
-            
-        #     print("Input: {}".format(data))
-        #     stream.write("OK", stream.close)
+        try:
+            while True:
+                # Read 4 bytes.
+                header = yield stream.read_bytes(4)
 
-        # stream.read_until("\n", got_data)
+                # Convert from network order to int.
+                length = _UNPACK_INT(header)[0]
 
+                msg = yield stream.read_bytes(length)
+                print('"%s"' % msg.decode())
+
+                del msg  # Dereference msg in case it's big.
+        except StreamClosedError:
+            print("%s disconnected", address)
 
 if __name__ == '__main__':
     server = MyTCPServer()
