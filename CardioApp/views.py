@@ -28,9 +28,10 @@ class SetBytesView(APIView):
             #     return JsonResponse("Request data is not correct!", safe=False)
             # else:
             p = Profile.objects.get(id=1)
-            p.data = byte
+            b = int.from_bytes(byte, byteorder='big')
+            p.data = b
             p.save()
-            return JsonResponse("Your byte is " + byte, safe=False)
+            return JsonResponse({'status': 'ok'}, safe=False)
         except ValueError as e:
             return JsonResponse(e.args[0], status.HTTP_404_NOT_FOUND)
 
