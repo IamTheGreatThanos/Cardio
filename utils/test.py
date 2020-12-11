@@ -1,21 +1,15 @@
-import socket
-import select
+b = int.from_bytes(b'\x80\x00\x00\x80\x00\x00\x80\x00\x00\x80\x00\x00\x80\x00\x00\x80\x00\x00\x80\x00\x00\x80\x00\x00\x80\x00\x00\x80\x00\x00', byteorder='big')
+print(b)
 
-# Задаем адрес сервера
-SERVER_ADDRESS = ('157.230.91.217', 9878)
-
-HOST = '157.230.91.217'  # Standard loopback interface address (localhost)
-PORT = 9878        # Port to listen on (non-privileged ports are > 1023)
-
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.bind((HOST, PORT))
-    s.listen()
-    conn, addr = s.accept()
-    with conn:
-        print('Connected by', addr)
-        while True:
-            data = conn.recv(1024)
-            if not data:
-                break
-            conn.sendall(data)
-            conn.close()
+import binascii
+a = b'\x80\x00\x00\x80\x00\x00\x80\x00\x00\x80\x00\x00\x80\x00\x00\x80\x00\x00\x80\x00\x00\x80\x00\x00\x80\x00\x00\x80\x00\x00'
+l = len(a)
+bb = []
+s = 0
+for i in range(3,l+3,3):
+    h = a[s:i].hex()
+    h = int(h, 16)
+    bb.append(h)
+    s=i
+print(bb)
+# print(bytearray.fromhex('deadbeef'))

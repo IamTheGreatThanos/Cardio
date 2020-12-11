@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'CardioApp',
-    'users'
+    'users',
+    # 'channels'
 ]
 APPEND_SLASH=False
 CORS_ORIGIN_ALLOW_ALL = True
@@ -89,6 +90,16 @@ DATABASES = {
     }
 }
 
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+            # "hosts": [('https://delprod.herokuapp.com', 6379)],
+        },
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
