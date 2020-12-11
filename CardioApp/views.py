@@ -24,7 +24,7 @@ class SetBytesView(APIView):
         try:
             byte = request.POST.get("byte")
             p = Profile.objects.get(id=1)
-            a = byte
+            a = byte.encode()
             l = len(a)
             s = 0
             bb = []
