@@ -2,8 +2,10 @@ import socket
 import select
 import requests
 
-SERVER_ADDRESS = ('157.230.91.217', 9879)
+# SERVER_ADDRESS = ('157.230.91.217', 9879)
+SERVER_ADDRESS = ('localhost', 9879)
 
+dd = None
 # Говорит о том, сколько дескрипторов единовременно могут быть открыты
 MAX_CONNECTIONS = 10
 
@@ -50,9 +52,11 @@ def handle_readables(readables, server):
             if data:
                 # Вывод полученных данных на консоль
                 # print("getting data: {data}".format(data=str(data)))
-                response = requests.post('http://back.cardioservice.com.kz/api/setByte/', data={'byte':str(data)})
+                if data != dd:
+                    response = requests.post('http://back.cardioservice.com.kz/api/setByte/', data={'byte':str(data)})
                 # print(response)
                 # Говорим о том, что мы будем еще и писать в данный сокет
+                dd = data
                 if resource not in OUTPUTS:
                     OUTPUTS.append(resource)
 

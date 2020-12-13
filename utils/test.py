@@ -21,10 +21,11 @@ import socket
 
 with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
 
-    message = b''
-    addr = ("157.230.91.217", 9878)
+    message = b'800000800008000008000080000080000'
+    # addr = ("157.230.91.217", 9879)
+    addr = ("localhost", 9879)
 
     s.sendto(message, addr)
 
-    data, address = s.recvfrom(1024)
-    print(data.decode())
+    # data, address = s.recvfrom(1024)
+    # print(data.decode())
