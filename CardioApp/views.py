@@ -23,6 +23,7 @@ class SetBytesView(APIView):
     def post(self, request):
         try:
             byte = request.POST.get("byte")
+            print(byte)
             p = Profile.objects.get(id=1)
             a = byte.encode()
             l = len(a)
