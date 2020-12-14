@@ -2,8 +2,8 @@ import socket
 import select
 import requests
 
-# SERVER_ADDRESS = ('157.230.91.217', 9879)
-SERVER_ADDRESS = ('localhost', 9879)
+SERVER_ADDRESS = ('157.230.91.217', 9879)
+# SERVER_ADDRESS = ('localhost', 9879)
 
 dd = None
 # Говорит о том, сколько дескрипторов единовременно могут быть открыты
