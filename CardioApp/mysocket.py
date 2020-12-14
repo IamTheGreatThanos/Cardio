@@ -5,7 +5,7 @@ import requests
 # SERVER_ADDRESS = ('157.230.91.217', 9879)
 SERVER_ADDRESS = ('localhost', 9879)
 
-dd = None
+dd = ""
 # Говорит о том, сколько дескрипторов единовременно могут быть открыты
 MAX_CONNECTIONS = 10
 
@@ -32,6 +32,7 @@ def handle_readables(readables, server):
     """
     Обработка появления событий на входах
     """
+    global dd
     for resource in readables:
         # Если событие исходит от серверного сокета, то мы получаем новое подключение
         if resource is server:
