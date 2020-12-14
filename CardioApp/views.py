@@ -25,13 +25,15 @@ class SetBytesView(APIView):
             byte = request.POST.get("byte")
             print(byte)
             p = Profile.objects.get(id=1)
-            a = byte.encode()
+            a = byte[2:len(byte)-1]
             l = len(a)
             s = 0
             bb = []
-            for i in range(3,l+3,3):
-                h = a[s:i].hex()
-                h = int(h, 16)
+            for i in range(12,l+12,12):
+                t = a[s:i].split("\\x")
+                st = ""
+                st = st.join(t)
+                h = int(st, 16)
                 bb.append(h)
                 s=i
             p.data = bb
