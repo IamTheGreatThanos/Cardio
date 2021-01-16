@@ -30,7 +30,7 @@ class SetBytesView(APIView):
             l = len(a)
             s = 0
             bb = []
-            a = a.hex()
+            # a = a.hex()
             # a = a.replace('\t','')
             # a = a.split('\\x')[1:]
             for i in range(0, len(a)-5, 5):
