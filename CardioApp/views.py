@@ -28,27 +28,16 @@ class SetBytesView(APIView):
             # a = byte[2:len(byte)-1]
             a = byte
             l = len(a)
-            s = 0
-            bb = []
-            # a = a.hex()
-            # a = a.replace('\t','')
-            # a = a.split('\\x')[1:]
-            for i in range(0, len(a), 6):
-                b = ''               
-                b += a[i:i+6]
-                h = int(b, 16)
-                bb.append(h)
-            # for i in range(12,l+12,12):
-            #     t = a[s:i].split("\\x") 
-            #     st = ""
-                
-            #     # st = st.join(t[:2])
-            #     st += t[0][:1] + t[1][:2] + t[2][:2] 
-            #     h = int(st, 16)
-            #     bb.append(h)
-            #     s=i
-            p.data = bb
-            p.save()
+            if l > 18:
+                s = 0
+                bb = []
+                for i in range(0, len(a), 6):
+                    b = ''               
+                    b += a[i:i+6]
+                    h = int(b, 16)
+                    bb.append(h)
+                p.data = bb
+                p.save()
             return JsonResponse({'status': 'ok'})
         except ValueError as e:
             return JsonResponse(e.args[0], status.HTTP_404_NOT_FOUND)
