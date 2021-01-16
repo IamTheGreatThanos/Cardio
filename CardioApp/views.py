@@ -9,7 +9,8 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import permission_classes
 from rest_framework import generics, permissions, status, views
-
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
 
 
 class SetBytesView(APIView):
@@ -21,6 +22,9 @@ class SetBytesView(APIView):
 
     
     def post(self, request):
+        group_name = "user"
+        channel = get_channel_layer()
+        
         try:
             byte = request.POST.get("byte")
             print(byte)
@@ -38,6 +42,16 @@ class SetBytesView(APIView):
                     bb.append(h)
                 p.data = bb
                 p.save()
+
+            async_to_sync(channel.group_send)(
+				group_name,
+				{
+					'type': 'send_point',
+					'content': {
+						'pointers': p.data,
+					}
+				}
+			)
             return JsonResponse({'status': 'ok'})
         except ValueError as e:
             return JsonResponse(e.args[0], status.HTTP_404_NOT_FOUND)

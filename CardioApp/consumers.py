@@ -12,7 +12,7 @@ from django.db import close_old_connections
 
 class PointerConsumer(JsonWebsocketConsumer):
     def connect(self):
-        self.group_name = 'user_'+str(self.scope['id'])
+        self.group_name = 'user'
         async_to_sync(self.channel_layer.group_add)(
             self.group_name,
             self.channel_name
