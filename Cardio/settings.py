@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'CardioApp',
     'users',
-    # 'channels'
+    'channels'
 ]
 APPEND_SLASH=False
 CORS_ORIGIN_ALLOW_ALL = True
