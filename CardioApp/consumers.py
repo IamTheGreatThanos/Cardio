@@ -3,11 +3,7 @@ from asgiref.sync import async_to_sync
 from channels.consumer import AsyncConsumer
 from channels.generic.websocket import JsonWebsocketConsumer
 import asyncio
-from .models import *
-from .serializers import *
-from users.models import *
 import json
-from django.db import close_old_connections
 
 
 class PointerConsumer(JsonWebsocketConsumer):

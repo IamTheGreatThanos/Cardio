@@ -6,10 +6,9 @@ from django.urls import path, include
 from CardioApp.consumers import PointerConsumer
 
 application = ProtocolTypeRouter({
-    # Just HTTP for now. (We can add other protocols later.)
     "websocket": AuthMiddlewareStack(
         URLRouter([
-            path("chart/", PointerConsumer),
+            path("api/setByte/", PointerConsumer),
         ])
     ),
 })
