@@ -54,7 +54,7 @@ def handle_readables(readables, server):
                 # Вывод полученных данных на консоль
                 # print("getting data: {data}".format(data=str(data)))
                 if data != dd:
-                    response = requests.post('http://back.cardioservice.com.kz/api/setByte/', data={'byte':str(data)})
+                    response = requests.post('https://back.cardioservice.com.kz/api/setByte/', data={'byte':str(data)})
                 # print(response)
                 # Говорим о том, что мы будем еще и писать в данный сокет
                 dd = data
@@ -81,14 +81,14 @@ def clear_resource(resource):
 
 
 def handle_writables(writables):
-
-    print(writables)
+    global dd
+    # print(writables)
     # Данное событие возникает когда в буффере на запись освобождается место
-    # for resource in writables:
-    #     try:
-    #         resource.send(bytes('Hello from server!', encoding='UTF-8'))
-    #     except OSError:
-    #         clear_resource(resource)
+    for resource in writables:
+        try:
+            resource.send(dd)
+        except OSError:
+            clear_resource(resource)
 
 
 if __name__ == '__main__':
