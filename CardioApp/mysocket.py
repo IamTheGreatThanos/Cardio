@@ -2,7 +2,7 @@ import socket
 import select
 import requests
 
-SERVER_ADDRESS = ('157.230.91.217', 9880)
+SERVER_ADDRESS = ('157.230.91.217', 9881)
 # SERVER_ADDRESS = ('localhost', 9879)
 
 dd = ""
