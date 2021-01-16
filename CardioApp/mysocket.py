@@ -51,7 +51,7 @@ def handle_readables(readables, server):
                 pass
 
             if data:
-                data = binascii.hexlify(a).decode()
+                data = binascii.hexlify(data).decode()
                 # Вывод полученных данных на консоль
                 # print("getting data: {data}".format(data=str(data)))
                 if data != dd:
