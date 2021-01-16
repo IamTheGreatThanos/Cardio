@@ -31,7 +31,7 @@ class SetBytesView(APIView):
             bb = []
             a = a.replace('\t','')
             a = a.split('\\x')[1:]
-            for i in range(0, len(a)-3, 3):
+            for i in range(0, len(a)-2, 3):
                 b = ''
                 if len(a[i][:2] + a[i+1][:2] + a[i+2][:2]) == 6:
                     b += a[i][:2] + a[i+1][:2] + a[i+2][:2]
