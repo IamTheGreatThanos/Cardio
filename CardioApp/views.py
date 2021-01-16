@@ -38,7 +38,7 @@ class SetBytesView(APIView):
                 s=i
             p.data = bb
             p.save()
-            return JsonResponse({'status': 'ok'}, safe=False)
+            return JsonResponse({'status': 'ok'})
         except ValueError as e:
             return JsonResponse(e.args[0], status.HTTP_404_NOT_FOUND)
 
