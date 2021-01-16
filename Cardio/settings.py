@@ -77,7 +77,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Cardio.wsgi.application'
-ASGI_APPLICATION = 'Cardio.asgi.application'
+ASGI_APPLICATION = 'Cardio.routing.application'
 
 
 # Database

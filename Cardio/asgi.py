@@ -17,13 +17,13 @@ from CardioApp.consumers import PointerConsumer
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Cardio.settings')
 django.setup()
-# application = get_asgi_application()
-application = ProtocolTypeRouter({
-    "http": get_asgi_application(),
-    # Just HTTP for now. (We can add other protocols later.)
-    "websocket": AuthMiddlewareStack(
-        URLRouter([
-            url(r"^chart/$", PointerConsumer.as_asgi()),
-        ])
-    ),
-})
+application = get_asgi_application()
+# application = ProtocolTypeRouter({
+#     "http": get_asgi_application(),
+#     # Just HTTP for now. (We can add other protocols later.)
+#     "websocket": AuthMiddlewareStack(
+#         URLRouter([
+#             url(r"^chart/$", PointerConsumer.as_asgi()),
+#         ])
+#     ),
+# })
