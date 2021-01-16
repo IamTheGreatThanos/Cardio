@@ -14,7 +14,7 @@ from channels.routing import get_default_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Cardio.settings')
 django.setup()
-application = get_asgi_application()
+application = get_default_application()
 # application = ProtocolTypeRouter({
 #     "http": get_asgi_application(),
 #     # Just HTTP for now. (We can add other protocols later.)
