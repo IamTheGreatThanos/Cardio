@@ -29,15 +29,21 @@ class SetBytesView(APIView):
             l = len(a)
             s = 0
             bb = []
-            for i in range(12,l+12,12):
-                t = a[s:i].split("\\x") 
-                st = ""
+            
+            a = a.split('\\x')[1:]
+            for i in range(0, len(a)-3, 3):
+                b = ''
+                b += a[i] + a[i+1] + a[i+2]
+                bb.append(b)
+            # for i in range(12,l+12,12):
+            #     t = a[s:i].split("\\x") 
+            #     st = ""
                 
-                # st = st.join(t[:2])
-                st += t[0][:2] + t[1][:2] + t[2][:2] 
-                h = int(st, 16)
-                bb.append(h)
-                s=i
+            #     # st = st.join(t[:2])
+            #     st += t[0][:1] + t[1][:2] + t[2][:2] 
+            #     h = int(st, 16)
+            #     bb.append(h)
+            #     s=i
             p.data = bb
             p.save()
             return JsonResponse({'status': 'ok'})
