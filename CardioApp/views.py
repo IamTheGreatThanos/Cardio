@@ -30,9 +30,11 @@ class SetBytesView(APIView):
             s = 0
             bb = []
             for i in range(12,l+12,12):
-                t = a[s:i].split("\\x")
+                t = a[s:i].split("\\x") 
                 st = ""
-                st = st.join(t)
+                
+                # st = st.join(t[:2])
+                st += t[0][:2] + t[1][:2] + t[2][:2] 
                 h = int(st, 16)
                 bb.append(h)
                 s=i
