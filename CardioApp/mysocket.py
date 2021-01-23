@@ -3,7 +3,7 @@ import select
 import requests
 import binascii
 
-SERVER_ADDRESS = ('157.230.91.217', 9881)
+SERVER_ADDRESS = ('157.230.91.217', 9880)
 # SERVER_ADDRESS = ('localhost', 9879)
 
 dd = ""
@@ -59,7 +59,8 @@ def handle_readables(readables, server):
                 # if len(data) % 6 == 0:
                     # dd += data
                 # if len(dd) == 600:
-                response = requests.post('https://back.cardioservice.com.kz/api/setByte/', data={'byte':str(data)})
+                if len(data) > 18:
+                    response = requests.post('https://back.cardioservice.com.kz/api/setByte/', data={'byte':str(data)})
                     # dd = ""
                 # print(response)
                 # Говорим о том, что мы будем еще и писать в данный сокет
