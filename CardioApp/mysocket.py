@@ -59,7 +59,7 @@ def handle_readables(readables, server):
                 # if len(data)%6==0:
                     # dd += data
                 # if len(dd) == 600:
-                response = requests.post('https://back.cardioservice.com.kz/api/setByte/', data={'byte':str(dd)})
+                response = requests.post('https://back.cardioservice.com.kz/api/setByte/', data={'byte':str(data)})
                     # dd = ""
                 # print(response)
                 # Говорим о том, что мы будем еще и писать в данный сокет
