@@ -55,8 +55,8 @@ def handle_readables(readables, server):
                 data = binascii.hexlify(data).decode()
                 # Вывод полученных данных на консоль
                 # print("getting data: {data}".format(data=str(data)))
-                if data != dd:
-                    response = requests.post('https://back.cardioservice.com.kz/api/setByte/', data={'byte':str(data)})
+                # if data != dd:
+                response = requests.post('https://back.cardioservice.com.kz/api/setByte/', data={'byte':str(data)})
                 # print(response)
                 # Говорим о том, что мы будем еще и писать в данный сокет
                 dd = data
