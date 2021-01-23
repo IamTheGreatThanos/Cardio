@@ -56,10 +56,10 @@ def handle_readables(readables, server):
                 # Вывод полученных данных на консоль
                 # print("getting data: {data}".format(data=str(data)))
                 # if data != dd:
-                # if len(data)%6==0:
-                    # dd += data
-                # if len(dd) == 600:
-                response = requests.post('https://back.cardioservice.com.kz/api/setByte/', data={'byte':str(data)})
+                if len(data)%6==0:
+                    dd += data
+                if len(dd) == 600:
+                    response = requests.post('https://back.cardioservice.com.kz/api/setByte/', data={'byte':str(data)})
                     # dd = ""
                 # print(response)
                 # Говорим о том, что мы будем еще и писать в данный сокет
@@ -86,14 +86,14 @@ def clear_resource(resource):
 
 
 def handle_writables(writables):
-    global dd
+    # global dd
     print(writables)
     # Данное событие возникает когда в буффере на запись освобождается место
-    for resource in writables:
-        try:
-            resource.send(b'\x80\x00\x00')
-        except OSError:
-            clear_resource(resource)
+    # for resource in writables:
+    #     try:
+    #         resource.send(b'\x80\x00\x00')
+    #     except OSError:
+    #         clear_resource(resource)
 
 
 if __name__ == '__main__':
