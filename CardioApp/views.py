@@ -27,7 +27,7 @@ class SetBytesView(APIView):
         
         try:
             byte = request.POST.get("byte")
-            print(byte)
+            # print(byte)
             # p = Profile.objects.get(id=1)
             # a = byte[2:len(byte)-1]
             a = byte
@@ -43,6 +43,7 @@ class SetBytesView(APIView):
                         bb.append(h)
                 # p.data = bb
                 # p.save()
+            print(bb)
             async_to_sync(channel.group_send)(
 				group_name,
 				{
