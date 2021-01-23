@@ -96,6 +96,8 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
             "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+            'capacity': 1500,
+            'expiry': 10,
             # "hosts": [('https://delprod.herokuapp.com', 6379)],
         },
     },
