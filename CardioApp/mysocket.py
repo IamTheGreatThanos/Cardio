@@ -3,7 +3,7 @@ import select
 import requests
 import binascii
 
-SERVER_ADDRESS = ('157.230.91.217', 9881)
+SERVER_ADDRESS = ('157.230.91.217', 9880)
 # SERVER_ADDRESS = ('localhost', 9879)
 
 dd = ""
@@ -86,12 +86,12 @@ def clear_resource(resource):
 
 
 def handle_writables(writables):
-    # global dd
+    global dd
     print(writables)
     # Данное событие возникает когда в буффере на запись освобождается место
     for resource in writables:
         try:
-            resource.send(dd)
+            resource.send(b'\x80\x00\x00')
         except OSError:
             clear_resource(resource)
 
