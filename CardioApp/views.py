@@ -28,27 +28,27 @@ class SetBytesView(APIView):
         try:
             byte = request.POST.get("byte")
             print(byte)
-            p = Profile.objects.get(id=1)
+            # p = Profile.objects.get(id=1)
             # a = byte[2:len(byte)-1]
             a = byte
             l = len(a)
+            bb = []
             if l > 18:
                 s = 0
-                bb = []
                 for i in range(0, len(a), 6):
                     b = ''               
                     b += a[i:i+6]
-                    h = int(b, 16)
-                    bb.append(h)
-                p.data = bb
-                p.save()
-
+                    if len(b) == 6:
+                        h = int(b, 16)
+                        bb.append(h)
+                # p.data = bb
+                # p.save()
             async_to_sync(channel.group_send)(
 				group_name,
 				{
 					'type': 'send_point',
 					'content': {
-						'pointers': p.data,
+						'pointers': bb,
 					}
 				}
 			)
