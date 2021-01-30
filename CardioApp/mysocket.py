@@ -3,7 +3,7 @@ import select
 import requests
 import binascii
 
-SERVER_ADDRESS = ('82.200.167.29', 9881)
+SERVER_ADDRESS = ('157.230.91.217', 9881)
 # SERVER_ADDRESS = ('localhost', 9879)
 
 dd = ""
