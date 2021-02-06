@@ -7,10 +7,10 @@ import json
 import urllib.parse
 
 class PointerConsumer(JsonWebsocketConsumer):
-    def connect(self, message):
+    def connect(self):
         # self.group_name = "room_"+str(self.scope['wid'])
         # self.group_name = "room_"+str(self.scope["url_route"]["kwargs"]["wid"])
-        self.group_name = urllib.parse.parse_qs(message.content['query_string'])
+        self.group_name = urllib.parse.parse_qs(self.scope['query_string'])
         print(self.group_name)
         async_to_sync(self.channel_layer.group_add)(
             self.group_name,
