@@ -7,21 +7,21 @@ from utils.socket_room import TokenAuthMiddlewareStack
 
 from CardioApp.consumers import PointerConsumer
 
-# application = ProtocolTypeRouter({
-#     "websocket": AuthMiddlewareStack(
-#         URLRouter([
-#             path("api/setByte/", PointerConsumer.as_asgi()),
-#         ])
-        
-#     ),
-# })
-
 application = ProtocolTypeRouter({
-    "websocket": 
-        TokenAuthMiddlewareStack(
-            URLRouter([
-                re_path(r"api/setByte/(?P<wid>\w+)/$", PointerConsumer.as_asgi()),
-            ])
-        )
-    
+    "websocket": AuthMiddlewareStack(
+        URLRouter([
+            re_path(r"api/setByte/(?P<wid>\w+)/$", PointerConsumer.as_asgi()),
+        ])
+        
+    ),
 })
+
+# application = ProtocolTypeRouter({
+#     "websocket": 
+#         TokenAuthMiddlewareStack(
+#             URLRouter([
+#                 re_path(r"api/setByte/(?P<wid>\w+)/$", PointerConsumer.as_asgi()),
+#             ])
+#         )
+    
+# })

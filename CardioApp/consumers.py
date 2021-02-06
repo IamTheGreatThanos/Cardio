@@ -8,7 +8,7 @@ import json
 
 class PointerConsumer(JsonWebsocketConsumer):
     def connect(self):
-        self.group_name = "room_"+str(self.scope['id'])
+        self.group_name = "room_"+str(self.scope['wid'])
         async_to_sync(self.channel_layer.group_add)(
             self.group_name,
             self.channel_name
