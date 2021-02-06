@@ -16,4 +16,5 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, null=True, blank=True)
     avatar = models.ImageField(upload_to=user_photos_dir, blank=True, null=True, default="default/default.png")
     location = models.TextField(blank=True, null=True)
+    device_id = models.CharField(max_length=500, blank=True, null=True)
 
