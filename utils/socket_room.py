@@ -12,6 +12,6 @@ class TokenAuthMiddleware:
             t = query['wid']
             # print(t)
             scope['id'] = t
-        return self.inner(scope)
+        return self.inner(scope, receive, send)
 
 TokenAuthMiddlewareStack = lambda inner: TokenAuthMiddleware(AuthMiddlewareStack(inner))
