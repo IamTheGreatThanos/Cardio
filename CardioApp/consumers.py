@@ -4,12 +4,14 @@ from channels.consumer import AsyncConsumer
 from channels.generic.websocket import JsonWebsocketConsumer
 import asyncio
 import json
-
+import urllib.parse
 
 class PointerConsumer(JsonWebsocketConsumer):
-    def connect(self):
+    def connect(self, message):
         # self.group_name = "room_"+str(self.scope['wid'])
-        self.group_name = "room_"+str(self.scope["url_route"]["kwargs"]["wid"])
+        # self.group_name = "room_"+str(self.scope["url_route"]["kwargs"]["wid"])
+        self.group_name = urllib.parse.parse_qs(message.content['query_string'])
+        print(self.group_name)
         async_to_sync(self.channel_layer.group_add)(
             self.group_name,
             self.channel_name

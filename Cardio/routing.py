@@ -10,7 +10,7 @@ from CardioApp.consumers import PointerConsumer
 application = ProtocolTypeRouter({
     "websocket": AuthMiddlewareStack(
         URLRouter([
-            re_path(r'api/setByte/(?P<wid>\w+)/$', PointerConsumer.as_asgi()),
+            path('api/setByte/', PointerConsumer.as_asgi()),
         ])
         
     ),
