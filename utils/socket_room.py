@@ -8,7 +8,6 @@ class TokenAuthMiddleware:
 
     def __call__(self, scope):
         query = dict((x.split('=') for x in scope['query_string'].decode().split("&")))
-        
         if "wid" in query.keys():
             t = query['wid']
             # print(t)

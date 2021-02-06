@@ -17,11 +17,11 @@ from CardioApp.consumers import PointerConsumer
 # })
 
 application = ProtocolTypeRouter({
-    "websocket": AllowedHostsOriginValidator(
+    "websocket": 
         TokenAuthMiddlewareStack(
             URLRouter([
                 path("api/setByte/", PointerConsumer.as_asgi()),
             ])
         )
-    ),
+    
 })
