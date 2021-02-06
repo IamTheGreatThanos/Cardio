@@ -34,7 +34,8 @@ class Login(APIView):
                         'last_name': user.last_name,
                         'location': user.location,
                         'avatar': request.build_absolute_uri(user.avatar.url),
-                        'birth_date': user.birth_date
+                        'birth_date': user.birth_date,
+                        'device_id': user.device_id
                     }
                 )
             else:
