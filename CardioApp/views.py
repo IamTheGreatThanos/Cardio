@@ -35,7 +35,7 @@ class SetBytesView(APIView):
             bb = []
             if l > 18:
                 s = 0
-                for i in range(0, len(a), 6):
+                for i in range(12, len(a), 6):
                     b = ''               
                     b += a[i:i+6]
                     if len(b) == 6:
@@ -43,6 +43,7 @@ class SetBytesView(APIView):
                         bb.append(h)
                 # p.data = bb
                 # p.save()
+                bb.insert(0, int(a[:12], 16))
             # print(bb)
             async_to_sync(channel.group_send)(
 				group_name,
