@@ -43,7 +43,8 @@ class SetBytesView(APIView):
                         bb.append(h)
                 # p.data = bb
                 # p.save()
-                bb.insert(0, int(a[:12], 16))
+                group_name = int(a[:12], 16)
+                bb.insert(0, group_name)
             # print(bb)
             async_to_sync(channel.group_send)(
 				group_name,
