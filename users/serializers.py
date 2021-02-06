@@ -14,3 +14,4 @@ class RegSer(serializers.Serializer):
     location = serializers.CharField()
     avatar = serializers.FileField(required=False)
     birth_date = serializers.DateField()
+    device_id = serializers.CharField()

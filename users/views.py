@@ -57,6 +57,7 @@ class Register(APIView):
                 location = s.validated_data['location'],
                 avatar = s.validated_data['avatar'],
                 birth_date = s.validated_data['birth_date'],
+                device_id = s.validated_data['device_id']
             )
             u.set_password(s.validated_data['pwd'])
             u.save()
@@ -71,7 +72,7 @@ class UsersGetApi(APIView):
     def get(self, request):
         queryset = User.objects.values('avatar', 'last_name', 'first_name',
                                        'birth_date', 'location',
-                                       'username', 'id').filter(is_staff=False)
+                                       'username', 'id', 'device_id').filter(is_staff=False)
         return Response(queryset)
 
 
@@ -87,6 +88,7 @@ class ChangeUser(APIView):
             user.last_name = s.validated_data.get('last_name')
             user.birth_date = s.validated_data.get('birth_date')
             user.location = s.validated_data.get('location')
+            user.device_id = s.validated_data.get('device_id')
             # user.username = s.validated_data.get('username')
             user.save()
             return Response({'status': 'ok'})
