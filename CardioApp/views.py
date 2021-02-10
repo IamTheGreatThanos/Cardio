@@ -28,7 +28,7 @@ class SetBytesView(APIView):
         try:
             byte = request.POST.get("byte")
             print(byte)
-            # p = Profile.objects.get(id=1)
+            p = Profile.objects.get(id=2)
             # a = byte[2:len(byte)-1]
             a = byte
             l = len(a)
@@ -41,8 +41,6 @@ class SetBytesView(APIView):
                     if len(b) == 6:
                         h = int(b, 16)
                         bb.append(h)
-                # p.data = bb
-                # p.save()
                 wid = int(a[:12], 16)
                 bb.insert(0, wid)
             # print(bb)
@@ -56,6 +54,10 @@ class SetBytesView(APIView):
 					}
 				}
 			)
+            p.data = p.data + bb
+            if len(p.data) > 3500:
+                p.data = bb
+            p.save()
             return JsonResponse({'status': 'ok'})
         except ValueError as e:
             return JsonResponse(e.args[0], status.HTTP_404_NOT_FOUND)
