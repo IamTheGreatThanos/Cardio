@@ -6,15 +6,6 @@ from django.contrib.postgres.fields import ArrayField
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
-    )
-    card_id = models.CharField(
-        max_length=160,
-        null=True,
-        blank=True
-    )
     device_id = models.CharField(
         max_length=160,
         null=True,
