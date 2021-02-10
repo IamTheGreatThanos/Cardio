@@ -60,11 +60,11 @@ class SetBytesView(APIView):
 				}
 			)
             if len(p.data) <= 0:
-                p.data = bb
+                p.data = bb[1:]
             elif len(p.data) > 3500:
-                p.data = bb
+                p.data = bb[1:]
             else:
-                p.data = p.data + bb
+                p.data = p.data + bb[1:]
             p.save()
             return JsonResponse({'status': 'ok'})
         except ValueError as e:
