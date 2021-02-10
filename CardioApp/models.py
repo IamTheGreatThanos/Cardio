@@ -19,4 +19,4 @@ class Profile(models.Model):
         blank=True)
 
     def __str__(self):
-        return self.user.username
+        return self.device_id
