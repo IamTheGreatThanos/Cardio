@@ -28,7 +28,7 @@ class SetBytesView(APIView):
         try:
             byte = request.POST.get("byte")
             print(byte)
-            p = Profile.objects.get(id=2)
+            p = None
             # a = byte[2:len(byte)-1]
             a = byte
             l = len(a)
@@ -42,6 +42,11 @@ class SetBytesView(APIView):
                         h = int(b, 16)
                         bb.append(h)
                 wid = int(a[:12], 16)
+                p = Profile.objects.filter(device_id=wid)
+                if p.exists():
+                    p = p[0]
+                else:
+                    p = Profile.objects.create(device_id=wid)
                 bb.insert(0, wid)
             # print(bb)
             group_name = "room_"+str(wid)
