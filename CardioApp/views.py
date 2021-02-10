@@ -59,7 +59,7 @@ class SetBytesView(APIView):
 					}
 				}
 			)
-            if len(p.data) <= 0:
+            if p.data == None:
                 p.data = bb[1:]
             elif len(p.data) > 3500:
                 p.data = bb[1:]
