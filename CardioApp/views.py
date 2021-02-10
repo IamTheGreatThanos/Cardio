@@ -71,6 +71,10 @@ class SetBytesView(APIView):
             return JsonResponse(e.args[0], status.HTTP_404_NOT_FOUND)
 
 
+class getData(APIView):
+    permission_classes = (permissions.AllowAny,)
 
-
-    
+    def get(self, request, id):
+        queryset = Profile.objects.values('data').get(device_id = id)
+        return Response(queryset)
+            
