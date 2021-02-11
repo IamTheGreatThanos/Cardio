@@ -55,10 +55,12 @@ class Register(APIView):
                 first_name = s.validated_data['first_name'],
                 last_name = s.validated_data['last_name'],
                 location = s.validated_data['location'],
-                avatar = s.validated_data.get('avatar', None),
                 birth_date = s.validated_data['birth_date'],
                 device_id = s.validated_data['device_id']
             )
+            ava = s.validated_data.get('avatar', None)
+            if ava:
+                u.avatar = ava
             u.set_password(s.validated_data['pwd'])
             u.save()
             return Response({'status': "ok"})
