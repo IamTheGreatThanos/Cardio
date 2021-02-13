@@ -96,3 +96,11 @@ class ChangeUser(APIView):
             return Response({'status': 'ok'})
         else:
             return Response(s.errors)
+
+
+class DeleteUser(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, id):
+        User.objects.get(id=id).delete()
+        return Response({'status': 'ok'})
