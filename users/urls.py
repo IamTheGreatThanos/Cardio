@@ -6,4 +6,5 @@ urlpatterns = [
     path('create/', Register.as_view()),
     path('get/', UsersGetApi.as_view()),
     path('change/', ChangeUser.as_view()),
+    path('delete/<id>', DeleteUser.as_view())
 ]
