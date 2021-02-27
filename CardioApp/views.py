@@ -35,7 +35,10 @@ class SetBytesView(APIView):
             bb = []
             if l > 18:
                 s = 0
-                for i in range(12, len(a), 6):
+                len_of = len(a)
+                if lan_of > 94:
+                    len_of = 94
+                for i in range(12, len_of, 6):
                     b = ''               
                     b += a[i:i+6]
                     if len(b) == 6:
