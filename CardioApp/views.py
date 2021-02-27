@@ -42,6 +42,8 @@ class SetBytesView(APIView):
                         h = int(b, 16)
                         if h > 16400000:
                             h = 16400000
+                        if h < 14400000:
+                            h = 14400000
                         bb.append(h)
                 wid = int(a[:12], 16)
                 p = Profile.objects.filter(device_id=wid)
