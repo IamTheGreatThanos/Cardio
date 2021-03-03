@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from .models import Profile 
+from .models import * 
 import json
 from django.http import JsonResponse
 from .serializers import *
@@ -10,7 +10,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import permission_classes
 from rest_framework import generics, permissions, status, views
 from asgiref.sync import async_to_sync
-from channels.layers import get_channel_layer
+# from channels.layers import get_channel_layer
+from datetime import datetime
 
 
 class SetBytesView(APIView):
@@ -23,7 +24,7 @@ class SetBytesView(APIView):
     
     def post(self, request):
         group_name = "user"
-        channel = get_channel_layer()
+        # channel = get_channel_layer()
         
         try:
             byte = request.POST.get("byte")
@@ -35,12 +36,18 @@ class SetBytesView(APIView):
             bb = []
             if l > 18:
                 s = 0
-                for i in range(12, len(a), 6):
+                len_of = len(a)
+                if len_of > 186:
+                    len_of = 186
+                for i in range(12, len_of, 6):
                     b = ''               
                     b += a[i:i+6]
                     if len(b) == 6:
                         h = int(b, 16)
-                        # if h==0:
+                        if h > 16600000:
+                            h = 16600000
+                        if h < 12400000:
+                            h = 12400000
                         bb.append(h)
                 wid = int(a[:12], 16)
                 p = Profile.objects.filter(device_id=wid)
@@ -51,22 +58,24 @@ class SetBytesView(APIView):
                 bb.insert(0, wid)
             # print(bb)
             group_name = "room_"+str(wid)
-            async_to_sync(channel.group_send)(
-				group_name,
-				{
-					'type': 'send_point',
-					'content': {
-						'pointers': bb,
-					}
-				}
-			)
-            if p.data == None:
-                p.data = bb[1:]
-            elif len(p.data) > 3500:
-                p.data = bb[1:]
+            # async_to_sync(channel.group_send)(
+			# 	group_name,
+			# 	{
+			# 		'type': 'send_point',
+			# 		'content': {
+			# 			'pointers': bb,
+			# 		}
+			# 	}
+			# )
+            today_d = datetime.now()
+            today = f'{today_d.year}-{today_d.month}-{today_d.day}'
+            pd = ProfileData.objects.filter(profile = p, date=today)
+            if pd.exists():
+                pd = pd[0]
+                pd.data = pd.data + bb[1:]
+                pd.save()
             else:
-                p.data = p.data + bb[1:]
-            p.save()
+                ProfileData.objects.create(date=today, data = bb[1:], profile=p)
             return JsonResponse({'status': 'ok'})
         except ValueError as e:
             return JsonResponse(e.args[0], status.HTTP_404_NOT_FOUND)
@@ -76,6 +85,12 @@ class getData(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def get(self, request, id):
-        queryset = Profile.objects.values('data').get(device_id = id)
+        # queryset = ProfileData.objects.values('date', 'data').filter(profile__device_id = id)
+        queryset = ProfileData.objects.values('date', 'data').filter(profile__device_id = id)
+        q = ProfileData.objects.filter(profile__device_id = id).order_by('id')
+        l = len(q) - 7
+        if l > 0:
+            for i in range(l):
+                q[i].delete()
         return Response(queryset)
             

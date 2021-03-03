@@ -18,7 +18,11 @@ class ProfileSerializer(serializers.Serializer):
         return Profile.objects.create(**validated_data)
 
 
-
 class LoginSer(serializers.Serializer):
     username = serializers.CharField()
     pwd = serializers.CharField()
+
+
+class PDSer(serializers.Serializer):
+    date = serializers.CharField()
+    data = serializers.CharField()
