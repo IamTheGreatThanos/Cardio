@@ -40,6 +40,7 @@ class SetBytesView(APIView):
                     b += a[i:i+6]
                     if len(b) == 6:
                         h = int(b, 16)
+                        # if h==0:
                         bb.append(h)
                 wid = int(a[:12], 16)
                 p = Profile.objects.filter(device_id=wid)
