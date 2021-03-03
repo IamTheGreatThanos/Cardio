@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'CardioApp',
     'users',
-    # 'channels'
+    'channels',
+    'reset_migrations'
 ]
 
 APPEND_SLASH=False

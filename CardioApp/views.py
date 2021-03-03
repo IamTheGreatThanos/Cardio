@@ -10,7 +10,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import permission_classes
 from rest_framework import generics, permissions, status, views
 from asgiref.sync import async_to_sync
-# from channels.layers import get_channel_layer
+from channels.layers import get_channel_layer
 from datetime import datetime
 
 
@@ -24,7 +24,7 @@ class SetBytesView(APIView):
     
     def post(self, request):
         group_name = "user"
-        # channel = get_channel_layer()
+        channel = get_channel_layer()
         
         try:
             byte = request.POST.get("byte")
@@ -58,15 +58,15 @@ class SetBytesView(APIView):
                 bb.insert(0, wid)
             # print(bb)
             group_name = "room_"+str(wid)
-            # async_to_sync(channel.group_send)(
-			# 	group_name,
-			# 	{
-			# 		'type': 'send_point',
-			# 		'content': {
-			# 			'pointers': bb,
-			# 		}
-			# 	}
-			# )
+            async_to_sync(channel.group_send)(
+				group_name,
+				{
+					'type': 'send_point',
+					'content': {
+						'pointers': bb,
+					}
+				}
+			)
             today_d = datetime.now()
             today = f'{today_d.year}-{today_d.month}-{today_d.day}'
             pd = ProfileData.objects.filter(profile = p, date=today)
