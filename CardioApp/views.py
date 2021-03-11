@@ -39,6 +39,16 @@ class SetBytesView(APIView):
                 len_of = len(a)
                 if len_of > 186:
                     len_of = 186
+                    for i in range(178, len(a), 6):
+                        b = ''               
+                        b += a[i:i+6]
+                        if len(b) == 6:
+                            h = int(b, 16)
+                            if h > 16600000:
+                                h = 16600000
+                            if h < 12400000:
+                                h = 12400000
+                            bb.append(h)
                 for i in range(12, len_of, 6):
                     b = ''               
                     b += a[i:i+6]
@@ -49,6 +59,8 @@ class SetBytesView(APIView):
                         if h < 12400000:
                             h = 12400000
                         bb.append(h)
+                
+                    
                 wid = int(a[:12], 16)
                 p = Profile.objects.filter(device_id=wid)
                 if p.exists():
