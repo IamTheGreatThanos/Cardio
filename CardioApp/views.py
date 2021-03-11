@@ -49,14 +49,16 @@ class SetBytesView(APIView):
                 #             if h < 12400000:
                 #                 h = 12400000
                 #             bb.append(h)
-                for i in range(12, len_of, 6):
+                for i in range(12, len(a), 6):
                     b = ''               
                     b += a[i:i+6]
                     if len(b) == 6:
                         h = int(b, 16)
                         if h > 16600000:
                             h = 16600000
-                        if h < 12400000:
+                        if h < 10:
+                            continue
+                        if h>10 and h < 12400000:
                             h = 12400000
                         bb.append(h)
                     
