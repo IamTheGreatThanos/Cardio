@@ -84,6 +84,8 @@ class SetBytesView(APIView):
             if pd.exists():
                 pd = pd[0]
                 pd.data = pd.data + bb[1:]
+                if len(pd.data) > 100000:
+                    pd.data = bb[1:]
                 pd.save()
             else:
                 ProfileData.objects.create(date=today, data = bb[1:], profile=p)
