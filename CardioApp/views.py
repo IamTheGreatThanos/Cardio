@@ -39,16 +39,6 @@ class SetBytesView(APIView):
                 len_of = len(a)
                 if len_of > 186:
                     len_of = 186
-                #     for i in range(178, len(a), 6):
-                #         b = ''               
-                #         b += a[i:i+6]
-                #         if len(b) == 6:
-                #             h = int(b, 16)
-                #             if h > 16600000:
-                #                 h = 16600000
-                #             if h < 12400000:
-                #                 h = 12400000
-                #             bb.append(h)
                 for i in range(12, len(a), 6):
                     b = ''               
                     b += a[i:i+6]
@@ -69,7 +59,7 @@ class SetBytesView(APIView):
                 bb.insert(0, wid)
             # print(bb)
             group_name = "room_"+str(wid)
-            async_to_sync(channel.group_send)(
+            async_to_sync(channel.group_send) (
 				group_name,
 				{
 					'type': 'send_point',
@@ -99,11 +89,15 @@ class getData(APIView):
 
     def get(self, request, id):
         # queryset = ProfileData.objects.values('date', 'data').filter(profile__device_id = id)
-        queryset = ProfileData.objects.values('date', 'data').filter(profile__device_id = id)
-        q = ProfileData.objects.filter(profile__device_id = id).order_by('id')
-        l = len(q) - 7
-        if l > 0:
-            for i in range(l):
-                q[i].delete()
+        queryset = ProfileData.objects.values('date').filter(profile__device_id = id)
+        return Response(queryset)
+
+
+class getDataDate(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request, id):
+        # queryset = ProfileData.objects.values('date', 'data').filter(profile__device_id = id)
+        queryset = ProfileData.objects.values('data').filter(date = id)
         return Response(queryset)
             
