@@ -89,7 +89,7 @@ class getData(APIView):
 
     def get(self, request, id):
         # queryset = ProfileData.objects.values('date', 'data').filter(profile__device_id = id)
-        queryset = ProfileData.objects.values('date').filter(profile__device_id = id)
+        queryset = ProfileData.objects.values('date', "id").filter(profile__device_id = id)
         return Response(queryset)
 
 
@@ -98,6 +98,6 @@ class getDataDate(APIView):
 
     def get(self, request, id):
         # queryset = ProfileData.objects.values('date', 'data').filter(profile__device_id = id)
-        queryset = ProfileData.objects.values('data').filter(date = id)
+        queryset = ProfileData.objects.values('data').filter(id = id)
         return Response(queryset)
             
