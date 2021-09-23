@@ -28,7 +28,7 @@ class SetBytesView(APIView):
         
         try:
             byte = request.POST.get("byte")
-            print(byte)
+            # print(byte)
             p = None
             # a = byte[2:len(byte)-1]
             a = byte
@@ -36,7 +36,6 @@ class SetBytesView(APIView):
             bb = []
             if l > 18:
                 s = 0
-
                 for i in range(12, len(a), 6):
                     b = ''               
                     b += a[i:i+6]
@@ -47,7 +46,6 @@ class SetBytesView(APIView):
                         # if h>10 and h < 12400000:
                         #     h = 12400000
                         bb.append(h)
-                    
                 wid = int(a[:12], 16)
                 p = Profile.objects.filter(device_id=wid)
                 if p.exists():
