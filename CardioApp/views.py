@@ -85,7 +85,7 @@ class getData(APIView):
 
     def get(self, request, id):
         # queryset = ProfileData.objects.values('date', 'data').filter(profile__device_id = id)
-        queryset = ProfileData.objects.values('date', "id").filter(profile__device_id = id)
+        queryset = ProfileData.objects.values('date', "id").filter(profile__device_id = id).order_by('date')
         return Response(queryset)
 
 
