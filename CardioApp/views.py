@@ -28,7 +28,7 @@ class SetBytesView(APIView):
         
         try:
             byte = request.POST.get("byte")
-            # print(byte)
+            print(byte)
             p = None
             # a = byte[2:len(byte)-1]
             a = byte
