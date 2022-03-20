@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 User=administrator
-WorkingDirectory=/var/www/cardio/Cardio
-ExecStart=/var/www/cardio/venv/bin/python CardioApp/mysocket.py
+WorkingDirectory=/home/administrator/Cardio
+ExecStart=/home/administrator/venv/bin/python CardioApp/mysocket.py
 
 [Install]
 WantedBy=multi-user.target
