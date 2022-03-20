@@ -3,10 +3,9 @@ Description=mysocket daemon
 After=network.target
 
 [Service]
-User=root
-Group=www-data
+User=administrator
 WorkingDirectory=/var/www/cardio/Cardio
-ExecStart=/var/www/cardio/venv/bin/python utils/mysocket.py
+ExecStart=/var/www/cardio/venv/bin/python CardioApp/mysocket.py
 
 [Install]
 WantedBy=multi-user.target
