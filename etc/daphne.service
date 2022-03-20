@@ -1,0 +1,11 @@
+[Unit]
+Description=daphne server script for xpro
+After=network.target
+
+[Service]
+User=administrator
+WorkingDirectory=/home/administrator/Cardio
+ExecStart=/home/administrator/venv/bin/daphne -b 0.0.0.0 -p 8000 Cardio.asgi:application
+
+[Install]
+WantedBy=multi-user.target
